@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام HICMIS الذكي لإدارة المكتبة والمراجع العلمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- شاشة تسجيل الدخول -->
+    <div id="login-screen" class="login-wrapper">
+        <div class="login-box">
+            <div class="logo-container">
+                <img src="logo.jpeg" alt="شعار معهد HICMIS" style="width: 140px; height: 140px; object-fit: contain; margin: 0 auto 15px; display: block; border-radius: 50%;">
+
+            </div>
+            <h2>تسجيل الدخول للنظام</h2>
+            <p>وزارة التعليم العالي - المعهد العالي للحاسبات ونظم المعلومات الإدارية</p>
+           <!-- أزرار التبديل بين الطالب والإدارة -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <button type="button" id="tab-student-btn" style="flex: 1; padding: 10px; border-radius: 8px; border: 2px solid #2e7d32; background: #2e7d32; color: #fff; cursor: pointer; font-weight: bold; font-family: inherit;">دخول الطلاب</button>
+          <button type="button" id="tab-admin-btn" style="flex: 1; padding: 10px; border-radius: 8px; border: 2px solid #ccc; background: #f0f0f0; color: #333; cursor: pointer; font-weight: bold; font-family: inherit;">دخول الإدارة</button>
+        </div>
+
+        <form id="login-form">
+          <input type="text" id="username" placeholder="كود الطالب الأكاديمي" required>
+          <input type="password" id="password" placeholder="كلمة المرور" required>
+          <button type="submit" class="btn btn-primary">دخول آمن</button>
+          <p id="login-error" class="error-msg" style="display: none;"></p>
+        </form>
+
+            <div class="dev-card">
+                تطوير وإعداد المطور: <strong>أحمد ربيع</strong><br>
+                الفرقة الثالثة - نظم معلومات إدارية
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة التحكم (مخفية حتى تسجيل الدخول) -->
+    <div id="dashboard" class="dashboard-container hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <svg viewBox="0 0 200 120" width="100" height="60">
+                    <polygon points="100,10 20,50 180,50" fill="#fff"/>
+                    <rect x="30" y="55" width="15" height="45" fill="#e8f8f5"/>
+                    <rect x="75" y="55" width="15" height="45" fill="#e8f8f5"/>
+                    <rect x="115" y="55" width="15" height="45" fill="#e8f8f5"/>
+                    <rect x="160" y="55" width="15" height="45" fill="#e8f8f5"/>
+                    <rect x="15" y="100" width="175" height="15" fill="#fff"/>
+                    <text x="100" y="42" font-family="Arial" font-weight="900" font-size="22" fill="#27ae60" text-anchor="middle">HICMIS</text>
+                </svg>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="#" class="active" data-target="books">فهرس الكتب والمراجع</a></li>
+                    <li><a href="#" data-target="students">شؤون الطلاب المستعيرين</a></li>
+                    <li><a href="#" data-target="borrows">حركات الاستعارة والاسترجاع</a></li>
+                    <li><a href="#" data-target="reports">تقارير المتأخرات والغرامات</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="dev-card-small">
+                    تطوير وإعداد المطور:<br>
+                    <strong>أحمد ربيع</strong><br>
+                    الفرقة الثالثة - نظم معلومات إدارية
+                </div>
+                <button id="logout-btn" class="btn btn-danger btn-block">تسجيل خروج</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-titles">
+                    <h3>وزارة التعليم العالي</h3>
+                    <h2>المعهد العالي للحاسبات ونظم المعلومات الإدارية (HICMIS)</h2>
+                </div>
+                <div class="user-info">أمين المكتبة (Admin)</div>
+            </header>
+
+            <div class="content-wrapper">
+                
+                <!-- 1. شاشة إدارة وفهرس الكتب -->
+                <section id="books" class="content-section active">
+                    <div class="card">
+                        <h2>إدارة المراجع العلمية</h2>
+                        <form id="add-book-form" class="form-grid">
+    <input type="text" id="book-code" placeholder="الكود الأكاديمي" required>
+    <input type="text" id="book-title" placeholder="عنوان المرجع" required>
+    <input type="text" id="book-author" placeholder="اسم المؤلف" required>
+    <select id="book-dept" required>
+        <option value="" disabled selected>اختر الشعبة</option>
+        <option value="نظم معلومات إدارية">نظم معلومات إدارية</option>
+        <option value="علوم حاسب">علوم حاسب</option>
+        <option value="محاسبة">محاسبة</option>
+        <option value="إدارة أعمال">إدارة أعمال</option>
+    </select>
+    <input type="number" id="book-copies" placeholder="عدد النسخ الورقية" required min="1">
+    <input type="url" id="book-pdf" placeholder="رابط النسخة الرقمية PDF (اختياري)" title="ضع رابط Google Drive أو رابط مباشر">
+    <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">إضافة المرجع</button>
+</form>
+                    </div>
+                    <div class="card">
+                        <input type="text" id="search-book" placeholder="بحث سريع بالاسم أو الكود..." class="search-box">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>الكود</th>
+                                    <th>عنوان المرجع</th>
+                                    <th>المؤلف</th>
+                                    <th>الشعبة</th>
+                                    <th>النسخ المتاحة</th>
+				    <th>النسخة الرقمية</th>
+
+                                    <th>إجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="books-table-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 2. شاشة شؤون الطلاب -->
+                <section id="students" class="content-section">
+                    <div class="card">
+                        <h2>تسجيل الطلاب المستعيرين</h2>
+                        <form id="add-student-form" class="form-grid">
+                            <input type="text" id="student-carnet" placeholder="رقم الكارنيه الجامعي" required>
+<input type="text" id="student-nid" placeholder="الرقم القومي (كلمة المرور - 14 رقم)" required pattern="\d{14}" maxlength="14" title="يجب أن يتكون من 14 رقم">
+
+                            <input type="text" id="student-name" placeholder="الاسم الرباعي" required>
+                            <select id="student-year" required>
+                                <option value="" disabled selected>الفرقة الدراسية</option>
+                                <option value="الفرقة الأولى">الفرقة الأولى</option>
+                                <option value="الفرقة الثانية">الفرقة الثانية</option>
+                                <option value="الفرقة الثالث">الفرقة الثالثة</option>
+                                <option value="الفرقة الرابعة">الفرقة الرابعة</option>
+                            </select>
+                            <input type="text" id="student-phone" placeholder="رقم الهاتف" required>
+                            <button type="submit" class="btn btn-primary">تسجيل الطالب</button>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>رقم الكارنيه</th>
+                                    <th>الاسم</th>
+                                    <th>الفرقة</th>
+                                    <th>الهاتف</th>
+                                    <th>إجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="students-table-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 3. شاشة الاستعارة والاسترجاع -->
+                <section id="borrows" class="content-section">
+                    <div class="card">
+                        <h2>تسجيل حركة استعارة جديدة</h2>
+                        <form id="add-borrow-form" class="form-grid">
+                            <select id="borrow-student" required></select>
+                            <select id="borrow-book" required></select>
+                            <input type="date" id="borrow-due-date" title="موعد الإرجاع" required>
+                            <button type="submit" class="btn btn-primary">تأكيد الاستعارة</button>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <h2>الحركات الحالية</h2>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>الطالب</th>
+                                    <th>المرجع</th>
+                                    <th>تاريخ الاستعارة</th>
+                                    <th>موعد الإرجاع</th>
+                                    <th>الحالة</th>
+                                    <th>إجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="borrows-table-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 4. شاشة التقارير والغرامات -->
+                <section id="reports" class="content-section">
+                   <div class="print-header hidden-screen" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2e7d32; padding-bottom: 10px; margin-bottom: 15px;">
+    <div style="text-align: right;">
+        <h3 style="margin: 0; font-size: 16px;">وزارة التعليم العالي</h3>
+        <h2 style="margin: 5px 0; font-size: 18px; color: #1b5e20;">المعهد العالي للحاسبات ونظم المعلومات الإدارية (HICMIS)</h2>
+        <h4 style="margin: 0; font-size: 14px; color: #555;">تقرير المتأخرات والغرامات المالية (5 جنيه/يوم تأخير)</h4>
+    </div>
+    <div>
+        <img src="logo.jpeg" alt="شعار المعهد" style="height: 75px; width: auto; object-fit: contain;">
+    </div>
+</div>
+<div class="card no-print-bg">
+                        <div class="flex-between no-print">
+                            <h2>تقرير الحالات والمتأخرات</h2>
+                            <button onclick="window.print()" class="btn btn-success">طباعة التقرير الرسمي</button>
+                        </div>
+                        <table class="data-table mt-15">
+                            <thead>
+                                <tr>
+                                    <th>الطالب</th>
+                                    <th>رقم الكارنيه</th>
+                                    <th>المرجع</th>
+                                    <th>تاريخ الاستحقاق</th>
+                                    <th>أيام التأخير</th>
+                                    <th>قيمة الغرامة (جنيه)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reports-table-body"></tbody>
+                        </table>
+                        <div class="print-footer hidden-screen">
+                            <br><br>
+                            <p>توقيع أمين المكتبة: ............................</p>
+                            <p>يعتمد عميد المعهد: ............................</p>
+                            
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+<!-- ================= بوابة الطالب ================= -->
+    <div id="student-portal" class="dashboard-container hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <svg viewBox="0 0 200 120" width="100" height="60">
+                    <polygon points="100,10 20,50 180,50" fill="#fff"/>
+                    <rect x="30" y="55" width="15" height="45" fill="#e8f8f5"/>
+                    <rect x="75" y="55" width="15" height="45" fill="#e8f8f5"/>
+                    <rect x="115" y="55" width="15" height="45" fill="#e8f8f5"/>
+                    <rect x="160" y="55" width="15" height="45" fill="#e8f8f5"/>
+                    <rect x="15" y="100" width="175" height="15" fill="#fff"/>
+                    <text x="100" y="42" font-family="Arial" font-weight="900" font-size="22" fill="#27ae60" text-anchor="middle">HICMIS</text>
+                </svg>
+            </div>
+            <nav class="menu" id="student-menu">
+                <ul>
+                    <li><a href="#" class="active" data-target="student-welcome-sec">الرئيسية (بوابة الطالب)</a></li>
+                    <li><a href="#" data-target="student-books-sec">فهرس المكتبة والاستعلام</a></li>
+                    <li><a href="#" data-target="student-borrows-sec">سجل استعاراتي والغرامات</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="student-logout-btn" class="btn btn-danger btn-block">تسجيل خروج</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-titles">
+                    <h3>بوابة الطالب الأكاديمية</h3>
+                    <h2>المعهد العالي للحاسبات ونظم المعلومات الإدارية (HICMIS)</h2>
+                </div>
+                <div class="user-info" id="student-header-name">اسم الطالب</div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- 1. شاشة الترحيب -->
+                <section id="student-welcome-sec" class="student-section active">
+                    <div class="card" style="background: linear-gradient(135deg, var(--hicmis-green), var(--hicmis-dark)); color: white; text-align: center; padding: 50px 20px;">
+                        <h1 id="welcome-msg" style="font-size: 32px; border:none;">مرحباً بك</h1>
+                        <p id="welcome-sub-msg" style="margin-top: 15px; font-size: 20px; font-weight: 600;"></p>
+                    </div>
+                </section>
+
+                <!-- 2. فهرس المكتبة (استعلام فقط) -->
+                <section id="student-books-sec" class="student-section">
+                    <div class="card">
+                        <h2>فهرس المكتبة والمراجع (استعلام)</h2>
+                        <input type="text" id="search-book-student" placeholder="ابحث عن مرجع بالاسم أو الكود..." class="search-box">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>الكود</th>
+                                    <th>عنوان المرجع</th>
+                                    <th>المؤلف</th>
+                                    <th>الشعبة</th>
+                                    <th>النسخ المتاحة</th>
+				    <th>النسخة الرقمية</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="student-books-table"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 3. سجل الاستعارات الشخصية -->
+                <section id="student-borrows-sec" class="student-section">
+                    <div class="card">
+                        <h2>سجل استعاراتي الشخصية</h2>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>المرجع</th>
+                                    <th>تاريخ الاستعارة</th>
+                                    <th>تاريخ الاستحقاق</th>
+                                    <th>الحالة</th>
+                                    <th>غرامات التأخير (جنيه)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-borrows-table"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // إعدادات Firebase الخاصة بمشروعك
+  const firebaseConfig = {
+    apiKey: "AIzaSyBWB5kwF0wRxH5_h5kGzNXwEjJKh_IwKvk",
+    authDomain: "hicmis-library.firebaseapp.com",
+    projectId: "hicmis-library",
+    storageBucket: "hicmis-library.firebasestorage.app",
+    messagingSenderId: "238671297237",
+    appId: "1:238671297237:web:1c00232730193d3318c05c"
+  };
+
+  // تهيئة Firebase و Firestore
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
