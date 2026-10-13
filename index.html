@@ -25,13 +25,17 @@
     width: 100% !important;
   }
 
-  /* ضغط القائمة الجانبية لشريط علوي مدمج ونظيف */
+  /* ترتيب الأجزاء: المحتوى يظهر قبل الفوتر */
   aside.sidebar {
-    width: 100% !important;
-    position: relative !important;
-    height: auto !important;
-    min-height: auto !important;
-    padding: 10px 12px !important;
+    display: contents !important;
+  }
+
+  /* 1. الشريط العلوي: الشعار وقائمة التبويبات */
+  aside.sidebar .sidebar-header {
+    order: 1 !important;
+    background: #1a252f !important;
+    padding: 10px !important;
+    text-align: center !important;
   }
 
   aside.sidebar .sidebar-header svg {
@@ -39,42 +43,37 @@
     width: auto !important;
   }
 
-  /* تحويل أزرار القائمة لشريط تنقل أفقي سريع */
-  aside.sidebar nav.menu ul {
+  aside.sidebar nav.menu, aside.sidebar nav#student-menu {
+    order: 2 !important;
+    background: #1a252f !important;
+    padding: 6px 10px !important;
+    border-bottom: 2px solid #2ecc71 !important;
+  }
+
+  aside.sidebar nav ul {
     display: flex !important;
     flex-direction: row !important;
     overflow-x: auto !important;
     white-space: nowrap !important;
     gap: 8px !important;
-    padding: 6px 0 !important;
+    margin: 0 !important;
+    padding: 4px 0 !important;
     scrollbar-width: none;
   }
 
-  aside.sidebar nav.menu ul::-webkit-scrollbar {
+  aside.sidebar nav ul::-webkit-scrollbar {
     display: none;
   }
 
-  aside.sidebar nav.menu ul li a {
-    padding: 6px 12px !important;
+  aside.sidebar nav ul li a {
+    padding: 6px 14px !important;
     font-size: 13px !important;
     border-radius: 6px !important;
   }
 
-  /* إخفاء صندوق المطور على الموبايل لتوفير المساحة وجعل زر الخروج صغير */
-  .dev-card, .sidebar-footer p, aside.sidebar div:has(> .btn-danger) p {
-    display: none !important;
-  }
-
-  aside.sidebar .btn-danger, #student-logout-btn {
-    padding: 6px 14px !important;
-    font-size: 13px !important;
-    width: auto !important;
-    margin: 6px auto !important;
-    display: block !important;
-  }
-
-  /* ضبط منطقة المحتوى والبطاقات والجدول */
+  /* 2. منطقة المحتوى الأساسية في المنتصف */
   main.main-content {
+    order: 3 !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 12px !important;
@@ -87,7 +86,30 @@
     border-radius: 10px !important;
   }
 
-  /* جعل الجداول قابلة للتمرير الأفقي بدون كسر أبعاد الشاشة */
+  /* 3. الفوتر وزر الخروج واسم المطور ينزلوا لآخر الصفحة تحت خالص */
+  aside.sidebar .sidebar-footer {
+    order: 4 !important;
+    background: #1a252f !important;
+    color: #fff !important;
+    padding: 20px 15px !important;
+    text-align: center !important;
+    margin-top: auto !important;
+    display: block !important;
+  }
+
+  aside.sidebar .sidebar-footer * {
+    display: block !important;
+  }
+
+  aside.sidebar .sidebar-footer .btn-danger, #student-logout-btn {
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    width: fit-content !important;
+    margin: 0 auto 14px auto !important;
+    border-radius: 8px !important;
+  }
+
+  /* جداول متناسقة وتمرير أفقي بدون خروج */
   table, .data-table {
     display: block !important;
     overflow-x: auto !important;
