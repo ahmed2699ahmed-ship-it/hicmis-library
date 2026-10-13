@@ -9,17 +9,22 @@
 <style>
 @media screen and (max-width: 850px) {
   body {
+    display: flex !important;
     flex-direction: column !important;
+    overflow-x: hidden !important;
   }
-  .sidebar, aside {
+  .sidebar, aside, [class*="sidebar"] {
+    position: relative !important;
     width: 100% !important;
-    position: static !important;
     height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
   }
-  .main-content, .content {
+  .main-content, .content, main, [class*="content"] {
     width: 100% !important;
+    position: relative !important;
     margin: 0 !important;
-    padding: 10px !important;
+    padding: 15px !important;
   }
 }
 </style>
