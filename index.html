@@ -13,28 +13,86 @@
 
 @media screen and (max-width: 850px) {
   html, body {
-    overflow-y: auto !important;
-    height: auto !important;
+    overflow-x: hidden !important;
+    background-color: #f4f6f9 !important;
   }
+
   .dashboard-container:not(.hidden) {
     display: flex !important;
     flex-direction: column !important;
     height: auto !important;
     min-height: 100vh !important;
+    width: 100% !important;
   }
+
+  /* ضغط القائمة الجانبية لشريط علوي مدمج ونظيف */
   aside.sidebar {
     width: 100% !important;
     position: relative !important;
     height: auto !important;
     min-height: auto !important;
-    max-height: none !important;
+    padding: 10px 12px !important;
   }
+
+  aside.sidebar .sidebar-header svg {
+    height: 38px !important;
+    width: auto !important;
+  }
+
+  /* تحويل أزرار القائمة لشريط تنقل أفقي سريع */
+  aside.sidebar nav.menu ul {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    gap: 8px !important;
+    padding: 6px 0 !important;
+    scrollbar-width: none;
+  }
+
+  aside.sidebar nav.menu ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  aside.sidebar nav.menu ul li a {
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+    border-radius: 6px !important;
+  }
+
+  /* إخفاء صندوق المطور على الموبايل لتوفير المساحة وجعل زر الخروج صغير */
+  .dev-card, .sidebar-footer p, aside.sidebar div:has(> .btn-danger) p {
+    display: none !important;
+  }
+
+  aside.sidebar .btn-danger, #student-logout-btn {
+    padding: 6px 14px !important;
+    font-size: 13px !important;
+    width: auto !important;
+    margin: 6px auto !important;
+    display: block !important;
+  }
+
+  /* ضبط منطقة المحتوى والبطاقات والجدول */
   main.main-content {
     width: 100% !important;
-    position: relative !important;
     margin: 0 !important;
-    padding: 15px !important;
-    overflow: visible !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .main-content .card, .main-content .section {
+    padding: 14px !important;
+    margin-bottom: 14px !important;
+    border-radius: 10px !important;
+  }
+
+  /* جعل الجداول قابلة للتمرير الأفقي بدون كسر أبعاد الشاشة */
+  table, .data-table {
+    display: block !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    white-space: nowrap !important;
   }
 }
 </style>
