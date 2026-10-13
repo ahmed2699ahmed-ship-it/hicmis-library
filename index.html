@@ -12,262 +12,33 @@
 }
 
 @media screen and (max-width: 850px) {
-  * {
-    box-sizing: border-box !important;
+  html, body {
+    overflow-y: auto !important;
+    height: auto !important;
   }
-
-  body {
-    background-color: #f8fafc !important;
-    font-family: 'Cairo', system-ui, -apple-system, sans-serif !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow-x: hidden !important;
-  }
-
   .dashboard-container:not(.hidden) {
     display: flex !important;
     flex-direction: column !important;
+    height: auto !important;
     min-height: 100vh !important;
-    width: 100% !important;
-    background: #f8fafc !important;
   }
-
   aside.sidebar {
-    display: contents !important;
+    width: 100% !important;
+    position: relative !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
   }
-
-  /* 1. الشريط العلوي والشعار */
-  aside.sidebar .sidebar-header {
-    order: 1 !important;
-    background: #0f172a !important;
-    padding: 12px 16px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 999 !important;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15) !important;
-  }
-
-  aside.sidebar .sidebar-header svg {
-    height: 34px !important;
-    width: auto !important;
-  }
-
-  /* 2. شريط التبويبات كبسولات أفقية */
-  aside.sidebar nav.menu, 
-  aside.sidebar nav#student-menu {
-    order: 2 !important;
-    background: #ffffff !important;
-    padding: 8px 12px !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-    position: sticky !important;
-    top: 54px !important;
-    z-index: 998 !important;
-  }
-
-  aside.sidebar nav ul {
-    display: flex !important;
-    flex-direction: row !important;
-    overflow-x: auto !important;
-    gap: 8px !important;
-    margin: 0 !important;
-    padding: 4px 0 !important;
-    scrollbar-width: none !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  aside.sidebar nav ul::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  aside.sidebar nav ul li {
-    list-style: none !important;
-    flex-shrink: 0 !important;
-  }
-
-  aside.sidebar nav ul li a {
-    display: inline-flex !important;
-    align-items: center !important;
-    padding: 8px 16px !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    border-radius: 50px !important;
-    color: #64748b !important;
-    background: #f1f5f9 !important;
-    text-decoration: none !important;
-    transition: all 0.2s ease !important;
-  }
-
-  aside.sidebar nav ul li a.active {
-    background: #10b981 !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
-  }
-
-  /* 3. منطقة المحتوى وبطاقة الطالب */
   main.main-content {
-    order: 3 !important;
     width: 100% !important;
+    position: relative !important;
     margin: 0 !important;
-    padding: 16px 14px !important;
-  }
-
-  .top-header, header.top-header {
-    background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
-    border-radius: 18px !important;
-    padding: 18px !important;
-    margin-bottom: 18px !important;
-    color: #ffffff !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.35) !important;
-    border: none !important;
-  }
-
-  .top-header h2, .top-header .header-titles h2 {
-    color: #ffffff !important;
-    font-size: 16px !important;
-    font-weight: 800 !important;
-    margin: 0 !important;
-    line-height: 1.5 !important;
-  }
-
-  .top-header span, .top-header .header-titles span {
-    color: rgba(255, 255, 255, 0.85) !important;
-    font-size: 12px !important;
-  }
-
-  .user-badge, .student-badge, div:has(> .badge-info) {
-    background: rgba(255, 255, 255, 0.2) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    color: #ffffff !important;
-    padding: 6px 14px !important;
-    border-radius: 30px !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    width: fit-content !important;
-  }
-
-  .card, .section, .student-section {
-    background: #ffffff !important;
-    border-radius: 18px !important;
-    padding: 18px 16px !important;
-    margin-bottom: 18px !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
-    border: 1px solid #f1f5f9 !important;
-  }
-
-  .card h3, .section h3, h2.section-title {
-    font-size: 16px !important;
-    font-weight: 800 !important;
-    color: #1e293b !important;
-    margin: 0 0 14px 0 !important;
-    border-right: 4px solid #10b981 !important;
-    padding-right: 10px !important;
-    text-align: right !important;
-  }
-
-  input[type="text"], input[type="search"], select {
-    width: 100% !important;
-    height: 46px !important;
-    border-radius: 12px !important;
-    border: 1.5px solid #e2e8f0 !important;
-    background: #f8fafc !important;
-    padding: 0 14px !important;
-    font-size: 13.5px !important;
-    color: #1e293b !important;
-    transition: all 0.2s ease !important;
-  }
-
-  input:focus, select:focus {
-    background: #ffffff !important;
-    border-color: #10b981 !important;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
-    outline: none !important;
-  }
-
-  table, .data-table {
-    display: block !important;
-    overflow-x: auto !important;
-    width: 100% !important;
-    margin-top: 14px !important;
-    border-radius: 12px !important;
-    border: 1px solid #f1f5f9 !important;
-  }
-
-  table th {
-    background: #f8fafc !important;
-    color: #475569 !important;
-    padding: 12px !important;
-    font-size: 12.5px !important;
-    font-weight: 700 !important;
-  }
-
-  table td {
-    padding: 12px !important;
-    font-size: 12.5px !important;
-    color: #334155 !important;
-    border-bottom: 1px solid #f1f5f9 !important;
-  }
-
-  /* 4. الفوتر السفلي: زر الخروج وبطاقة المطور */
-  aside.sidebar .sidebar-footer {
-    order: 4 !important;
-    background: #0f172a !important;
-    padding: 24px 16px 36px !important;
-    text-align: center !important;
-    margin-top: auto !important;
-    border-top: 1px solid #1e293b !important;
-    display: block !important;
-  }
-
-  aside.sidebar .sidebar-footer .btn-danger, #student-logout-btn {
-    background: #ef4444 !important;
-    color: #ffffff !important;
-    border: none !important;
-    padding: 10px 30px !important;
-    border-radius: 50px !important;
-    font-size: 13.5px !important;
-    font-weight: 700 !important;
-    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3) !important;
-    margin: 0 auto 20px auto !important;
-    display: inline-block !important;
-    cursor: pointer !important;
-  }
-
-  .dev-card, .sidebar-footer div:has(p), aside.sidebar .sidebar-footer {
-    display: block !important;
-  }
-
-  .dev-card, .sidebar-footer p {
-    background: rgba(255, 255, 255, 0.04) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 14px !important;
-    padding: 14px !important;
-    max-width: 320px !important;
-    margin: 0 auto !important;
-  }
-
-  .dev-card *, .sidebar-footer p * {
-    display: block !important;
-    font-size: 12.5px !important;
-    color: #94a3b8 !important;
-    line-height: 1.8 !important;
-    margin: 2px 0 !important;
-  }
-
-  .dev-card strong, .sidebar-footer p strong, .dev-card h4 {
-    color: #10b981 !important;
-    font-size: 15px !important;
-    font-weight: 800 !important;
+    padding: 15px !important;
+    overflow: visible !important;
   }
 }
 </style>
+
 
 </head>
 <body>
