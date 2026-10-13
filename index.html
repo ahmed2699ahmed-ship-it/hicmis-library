@@ -5,26 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نظام HICMIS الذكي لإدارة المكتبة والمراجع العلمية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
 <style>
 @media screen and (max-width: 850px) {
-  body {
+  html, body {
+    overflow-y: auto !important;
+    height: auto !important;
+  }
+  .dashboard-container {
     display: flex !important;
     flex-direction: column !important;
-    overflow-x: hidden !important;
+    height: auto !important;
+    min-height: 100vh !important;
   }
-  .sidebar, aside, [class*="sidebar"] {
-    position: relative !important;
+  aside.sidebar {
     width: 100% !important;
+    position: relative !important;
     height: auto !important;
     min-height: auto !important;
     max-height: none !important;
   }
-  .main-content, .content, main, [class*="content"] {
+  main.main-content {
     width: 100% !important;
     position: relative !important;
     margin: 0 !important;
     padding: 15px !important;
+    overflow: visible !important;
   }
 }
 </style>
