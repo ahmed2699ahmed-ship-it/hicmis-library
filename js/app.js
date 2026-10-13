@@ -453,3 +453,22 @@ function renderStudentBorrows() {
         tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">ليس لديك أي حركات استعارة مسجلة.</td></tr>';
     }
 }
+// ==========================================
+// C++ Engine Integration (ربط محرك السي بلس بلس)
+// ==========================================
+async function loadDataFromCppEngine() {
+    try {
+        const response = await fetch('/api/books');
+        if (response.ok) {
+            const books = await response.json();
+            console.log("[C++ Backend] تم استلام البيانات من محرك C++ بنجاح:", books);
+        }
+    } catch (error) {
+        console.warn("[C++ Backend] تنبيه: تعذر الاتصال بمحرك C++ المحلي:", error);
+    }
+}
+
+// تنفيذ استدعاء C++ عند تحميل الصفحة
+window.addEventListener("DOMContentLoaded", () => {
+    loadDataFromCppEngine();
+});
